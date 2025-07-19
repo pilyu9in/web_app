@@ -9,16 +9,19 @@
 <button id="sendBtn">Отправить данные</button>
 
 <script>
-    // Телеграм WebApp объект автоматически доступен в iframe Telegram
-    const tg = window.Telegram.WebApp;
+    const tg = window.Telegram?.WebApp;
 
-    // Раскрыть окно (опционально)
-    tg.expand();
+    if (!tg) {
+        alert("Ошибка: WebApp объект Telegram недоступен. Открывайте через Telegram.");
+    } else {
+        tg.expand();
+        console.log("Telegram WebApp доступен", tg);
 
-    // Обработчик кнопки
-    document.getElementById('sendBtn').addEventListener('click', () => {
-        tg.sendData("Привет из WebApp!");
-    });
+        document.getElementById('sendBtn').addEventListener('click', () => {
+            console.log("Отправляем данные из WebApp");
+            tg.sendData("Привет из WebApp!");
+        });
+    }
 </script>
 </body>
 </html>
