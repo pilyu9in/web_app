@@ -16,10 +16,15 @@
     } else {
         tg.expand();
         console.log("Telegram WebApp доступен", tg);
-
+        
+        // Инициализация WebApp
+        tg.ready();
+        
         document.getElementById('sendBtn').addEventListener('click', () => {
             console.log("Отправляем данные из WebApp");
+            // Отправляем данные и закрываем WebApp
             tg.sendData("Привет из WebApp!");
+            tg.close();
         });
     }
 </script>
