@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <title>My WebApp</title>
+    <!-- Добавьте эту строку -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-<h1>Hello from WebApp!</h1>
-<button id="sendBtn">Отправить данные</button>
+    <h1>Hello from WebApp!</h1>
+    <button id="sendBtn">Отправить данные</button>
 
-<script>
-    const tg = window.Telegram?.WebApp;
+    <script>
+        // Проверяем, что WebApp инициализирован
+        const tg = window.Telegram?.WebApp;
 
-    if (!tg) {
-        alert("Ошибка: WebApp объект Telegram недоступен. Открывайте через Telegram.");
-    } else {
-        tg.expand();
-        console.log("Telegram WebApp доступен", tg);
-        
-        // Инициализация WebApp
-        tg.ready();
-        
-        document.getElementById('sendBtn').addEventListener('click', () => {
-            console.log("Отправляем данные из WebApp");
-            // Отправляем данные и закрываем WebApp
-            tg.sendData("Привет из WebApp!");
-            tg.close();
-        });
-    }
-</script>
+        if (!tg) {
+            console.error("Telegram WebApp не доступен. Открывайте через Telegram.");
+            alert("Откройте этот WebApp через Telegram!");
+        } else {
+            console.log("Telegram WebApp доступен!", tg);
+            tg.expand(); // Разворачиваем на весь экран
+            tg.ready();  // Говорим Telegram, что WebApp готов
+
+            document.getElementById('sendBtn').addEventListener('click', () => {
+                console.log("Отправка данных...");
+                tg.sendData("Данные из WebApp: " + Date.now());
+                tg.close(); // Закрываем WebApp после отправки
+            });
+        }
+    </script>
 </body>
 </html>
